@@ -34,6 +34,7 @@ function receiveMessage(event) {
       throw new Error('Network response was not ok ' + response.statusText);
     }
     webData = response.json(); // Parse the JSON from the response
+      console.log(webData);
   })
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
