@@ -6,6 +6,7 @@ window.onload = function() {
 };
 
 let loginWindow;
+let webData;
 
 //opens the login window prompting the user to login
 function login() {
@@ -25,6 +26,18 @@ function receiveMessage(event) {
   const userId = loginData.Id
   const token = loginData.Token;
   loginWindow.close();
+
+    fetch('https://ps.pishock.com/PiShock/GetUserDevices?UserId='userId'&Token='+token)  // The URL you want to send the request to
+  .then(response => {
+    // Check if the request was successful
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+    webData = response.json(); // Parse the JSON from the response
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
 }
 
 window.addEventListener('message', receiveMessage, false);
